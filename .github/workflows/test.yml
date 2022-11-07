@@ -4,39 +4,39 @@ on:
   push:
     branches: [main]
 
-    jobs:
-      test:
-        runs-on: ubuntu-latest
+jobs:
+  test:
+    runs-on: ubuntu-latest
 
-        steps:
-          - uses: actions/checkout@v2
-            with:
-              fhell: bash
-              id: is_code
-              run: |
-                $diff = git diff --name-only HEAD^ HEAD
-                $SourceDiff = $diff | Where-Object { $_ -match '.c$' -or $_ -match '.h$' -or $_ -match 'Makefile' }
-                $HasDiff = $SourceDiff.Length -gt 0
-                Write-Host "::set-output name=to_test::$HasDiff"tch-depth: 2
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fhell: bash
+          id: is_code
+          run: |
+            $diff = git diff --name-only HEAD^ HEAD
+            $SourceDiff = $diff | Where-Object { $_ -match '.c$' -or $_ -match '.h$' -or $_ -match 'Makefile' }
+            $HasDiff = $SourceDiff.Length -gt 0
+            Write-Host "::set-output name=to_test::$HasDiff"tch-depth: 2
 
-          - name: Get changed files
-            id: changed-files
-            if: steps.is_code.outputs.to_test == 'True'
-            uses: tj-actions/changed-files@v34
+      - name: Get changed files
+        id: changed-files
+        if: steps.is_code.outputs.to_test == 'True'
+        uses: tj-actions/changed-files@v34
 
-          - name: Clone libftTester
-            if: steps.is_code.outputs.to_test == 'True'
-            uses: actions/checkout@v2
-            with:
-              repository: Tripouille/libftTester
-              path: libftTester
+      - name: Clone libftTester
+        if: steps.is_code.outputs.to_test == 'True'
+        uses: actions/checkout@v2
+        with:
+          repository: Tripouille/libftTester
+          path: libftTester
 
-          - name: Test changed functions
-            if: steps.is_code.outputs.to_test == 'True'
-            run: |
-              cd libftTester
-              export TERM=xterm
-              for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-              filename=${file%.*}
-              make ${filename:3}
-              done
+      - name: Test changed functions
+        if: steps.is_code.outputs.to_test == 'True'
+        run: |
+          cd libftTester
+          export TERM=xterm
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          filename=${file%.*}
+          make ${filename:3}
+          done
