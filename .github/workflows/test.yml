@@ -24,7 +24,8 @@ jobs:
       - name: Test changed functions
         run: |
           cd libftTester
+          TERM=xterm
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             filename=${file%.*}
-            make docker${filename:3}
+            make ${filename:3}
           done
