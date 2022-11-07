@@ -26,5 +26,5 @@ jobs:
           cd libftTester
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             filename=${file%.*}
-            make docker ${filename:3}
+            make docker${filename:3}
           done
