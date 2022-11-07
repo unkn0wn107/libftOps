@@ -11,13 +11,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fhell: bash
-          id: is_code
-          run: |
-            $diff = git diff --name-only HEAD^ HEAD
-            $SourceDiff = $diff | Where-Object { $_ -match '.c$' -or $_ -match '.h$' -or $_ -match 'Makefile' }
-            $HasDiff = $SourceDiff.Length -gt 0
-            Write-Host "::set-output name=to_test::$HasDiff"tch-depth: 2
+          fetch-depth: 2
+
+      - id: is_code
+        shell: bash
+        run: |
+          $diff = git diff --name-only HEAD^ HEAD
+          $SourceDiff = $diff | Where-Object { $_ -match '.c$' -or $_ -match '.h$' -or $_ -match 'Makefile' }
+          $HasDiff = $SourceDiff.Length -gt 0
+          Write-Host "::set-output name=to_test::$HasDiff"tch-depth: 2
 
       - name: Get changed files
         id: changed-files
