@@ -25,6 +25,6 @@ jobs:
         run: |
           cd libftTester
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            filename = ${file%.*}
+            filename=${file%.*}
             make ${filename:3}
           done
