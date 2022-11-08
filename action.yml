@@ -1,13 +1,9 @@
-name: Test
+name: 'libftOps'
+author: 'unkn0wn107'
+description: 'CD pour ta libft'
 
-on:
-  push:
-    branches: [main]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-
+runs:
+    using: composite
     steps:
       - uses: actions/checkout@v2
 
