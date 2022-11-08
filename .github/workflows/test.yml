@@ -26,10 +26,10 @@ jobs:
           cd libftTester
           export TERM=xterm #For tput from libftTester/Makefile
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            if [[ $file == *.c ]] then
+            if [[ $file == *.c ]]; then
               filename=${file%.*}
               make ${filename:3}
-            elif [[ $file == *.h ]] || [[ $file == "Makefile" ]] then
+            elif [[ $file == *.h || $file == "Makefile" ]]; then
               find ../ -type f -name "*.c" -exec bash -c 'echo "$1" | sed 's/.c//' | sed 's#../ft_##' | make' - {} \; 
             fi
           done
