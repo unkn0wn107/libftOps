@@ -18,6 +18,7 @@ runs:
           path: libftTester
 
       - name: Test changed functions
+        shell: bash
         run: |
           cd libftTester
           export TERM=xterm #For tput from libftTester/Makefile
