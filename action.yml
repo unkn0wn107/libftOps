@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/08 19:20:52 by agaley           ###   ########lyon.fr    #
+#    Updated: 2022/11/09 00:09:50 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,10 +42,10 @@ runs:
             if [[ $file == *.c ]]; then
               filename=${file%.*}
               funcname=${filename:3}
-              echo "${file} changed - Test ${funcname}\n"
+              echo "${file} changed - Test ${funcname}"
               make $funcname
             elif [[ $file == *.h || $file == "Makefile" ]]; then
-              echo "${file} changed - Test all functions\n"
+              echo "${file} changed - Test all functions"
               funcnames=($(find ../ -type f -name "*.c" -print0 | xargs -I {} -0 -n1 bash -c "echo {} | sed 's/.c//' | sed 's#..//ft_##'"))
               for funcname in $funcnames; do make $funcname; done
             fi
