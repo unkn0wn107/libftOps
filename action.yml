@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/08 15:55:56 by agaley           ###   ########lyon.fr    #
+#    Updated: 2022/11/08 17:20:07 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,7 @@ runs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ $file == *.c ]]; then
               filename=${file%.*}
-              exit_code=make ${filename:3}
-              if [[ $exit_code == 1 ]]; then exit 1 fi
+              make ${filename:3}
             elif [[ $file == *.h || $file == "Makefile" ]]; then
               find ../ -type f -name "*.c" -print0 | xargs -I {} -0 -n1 bash -c "echo {} | sed 's/.c//' | sed 's#..//ft_##' | make"
             fi
