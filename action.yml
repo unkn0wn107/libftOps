@@ -6,13 +6,13 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/08 17:20:07 by agaley           ###   ########lyon.fr    #
+#    Updated: 2022/11/08 19:12:32 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 name: 'libftOps'
 author: 'unkn0wn107'
-description: 'CD pour ta libft'
+description: 'CI pour ta libft'
 
 runs:
     using: composite
@@ -37,8 +37,12 @@ runs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ $file == *.c ]]; then
               filename=${file%.*}
-              make ${filename:3}
+              funcname=${filename:3}
+              echo "${file} changed - Test ${funcname}\n"
+              make $funcname
             elif [[ $file == *.h || $file == "Makefile" ]]; then
-              find ../ -type f -name "*.c" -print0 | xargs -I {} -0 -n1 bash -c "echo {} | sed 's/.c//' | sed 's#..//ft_##' | make"
+              echo "${file} changed - Test all functions\n"
+              funcnames=($(find ../ -type f -name "*.c" -print0 | xargs -I {} -0 -n1 bash -c "echo {} | sed 's/.c//' | sed 's#..//ft_##'"))
+              for funcname in $funcnames; do make $funcname; done
             fi
           done
