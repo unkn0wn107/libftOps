@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/09 00:30:19 by agaley           ###   ########lyon.fr    #
+#    Updated: 2022/11/09 01:50:21 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,36 +17,14 @@ description: 'CI pour ta libft'
 runs:
     using: composite
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v34
-
-      - name: Clone libftTester
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
-          repository: Tripouille/libftTester
-          path: libftTester
+          path: libft
 
-      - name: Install Valgrind
+      - name: Install Francinette
         shell: bash
-        run: sudo apt install valgrind
+        run: curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh
 
-      - name: Test changed functions
+      - name: Run tests
         shell: bash
-        run: |
-          cd libftTester
-          export TERM=xterm #For tput from libftTester/Makefile
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            if [[ $file == *.c ]]; then
-              filename=${file%.*}
-              funcname=${filename:3}
-              echo "${file} changed - Test ${funcname}"
-              make $funcname
-            elif [[ $file == *.h || $file == "Makefile" ]]; then
-              echo "${file} changed - Test all functions"
-              funcnames=$(find ../ -type f -name "*.c" -print0 | xargs -I {} -0 -n1 bash -c "echo {} | rev | cut -c3- | rev | sed 's#../ft_##'")
-              for funcname in $funcnames; do make $funcname; done
-            fi
-          done
+        run: paco
