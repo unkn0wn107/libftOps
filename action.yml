@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/09 17:54:25 by agaley           ###   ########lyon.fr    #
+#    Updated: 2022/11/09 18:00:15 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ runs:
         shell: bash
         run: |
           cd libftTester
-          error_found = 0
+          error_found=0
           export TERM=xterm #For tput from libftTester/Makefile
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ $file == *.h || $file == "Makefile" ]]; then
