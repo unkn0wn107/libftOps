@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/09 01:50:21 by agaley           ###   ########lyon.fr    #
+#    Updated: 2022/11/09 01:52:24 by alex             ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,4 +27,4 @@ runs:
 
       - name: Run tests
         shell: bash
-        run: paco
+        run: cd libft && paco
