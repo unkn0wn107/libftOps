@@ -18,4 +18,10 @@ jobs:
 
 And enjoy continuous testing
 
+
+Project :
+- refactor/francinette - Not working - Refactoring to use https://github.com/xicodomingues/francinette 
+To contribute `- uses: unkn0wn107/libftOps@refactor/francinette`
+
+
 Thanks to https://github.com/Tripouille/libftTester which does all the heavy lifting
