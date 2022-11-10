@@ -43,4 +43,4 @@ runs:
 
       - name: Run tests
         shell: bash
-        run: cd libft && paco
+        run: cd libft && bash ~/francinette/tester.sh
