@@ -21,6 +21,8 @@ runs:
         with:
           path: libft
 
+      - uses: actions/setup-python@v4 
+
       - name: Install Francinette
         shell: bash
         run: |
