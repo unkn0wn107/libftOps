@@ -24,7 +24,7 @@ runs:
       - name: Install Francinette
         shell: bash
         run: |
-          curl -fsSL https://raw.github.com/unkn0wn107/francinette/blob/feat/linux-compat/bin/install.sh > install.sh
+          curl -fsSL https://raw.githubusercontent.com/unkn0wn107/francinette/feat/linux-compat/bin/install.sh > install.sh
           chmod +x install.sh
           ./install.sh
 
