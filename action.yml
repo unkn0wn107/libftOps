@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/10 14:38:59 by agaley           ###   ########lyon.fr    #
+#    Updated: 2022/11/10 14:54:38 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,9 +43,9 @@ runs:
             if [[ $file == *.h || $file == "Makefile" ]]; then
               echo ">>> $file changed - Test all functions <<<"
               echo "If all your tests are OK and the moulinette KO you, please run the tester with valgrind (see README)"
-              funcnames=$(find ../ -type f -name "*.c" -print0 | xargs -I {} -0 -n1 bash -c "echo {} | rev | cut -c3- | rev | sed 's#../ft_##'")
+              funcnames=$(find ../ -type f -name "*.c" | rev | cut -c3- | rev | sed 's#../ft_##' | tr '\n' ',')
               echo "Functions to test : $funcnames"
-              for funcname in $funcnames; do
+              for funcname in $(echo $funcnames | sed "s/,/ /g"); do
                 output=$(trap "make $funcname" EXIT)
                 echo "$(echo "$output" | sed 's/are OK//g' | grep OK)"
                 kos=$(echo "$output" | sed 's/KO you//g' | grep KO)
