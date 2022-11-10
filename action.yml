@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/10 14:20:38 by agaley           ###   ########lyon.fr    #
+#    Updated: 2022/11/10 14:28:02 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ runs:
               echo "If all your tests are OK and the moulinette KO you, please run the tester with valgrind (see README)"
               funcnames=($(find ../ -type f -name "*.c" -print0 | xargs -I {} -0 -n1 bash -c "echo {} | rev | cut -c3- | rev | sed 's#../ft_##'"))
               for funcname in $funcnames; do
-                output=$(make $funcname)
+                output=$(trap "make $funcname" EXIT)
                 echo "$(echo "$output" | sed 's/are OK//g' | grep OK)"
                 kos=$(echo "$output" | sed 's/KO you//g' | grep KO)
                 if [[ "$kos" != "" ]]; then echo "$kos"; error_found=1; fi
