@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/09 18:00:15 by agaley           ###   ########lyon.fr    #
+#    Updated: 2022/11/10 01:42:59 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,13 @@ runs:
               echo "${file} changed - Test all functions"
               funcnames=$(find ../ -type f -name "*.c" -print0 | xargs -I {} -0 -n1 bash -c "echo {} | rev | cut -c3- | rev | sed 's#../ft_##'")
               for funcname in $funcnames; do
-                make $funcname
-                if [[ $? != 0 ]]; then error_found = $?; fi
+                output=$(make $funcname)
+                echo "$(echo "$output" | grep OK)"
+                kos=$(echo "$output" | sed 's/KO you//g' | grep KO)
+                if [[ $kos ]];then
+                  echo "$kos"
+                  error_found=1
+                fi
               done
               exit error_found
             fi
@@ -55,8 +60,13 @@ runs:
               filename=${file%.*}
               funcname=${filename:3}
               echo "${file} changed - Test ${funcname}"
-              make $funcname
-              if [[ $? != 0 ]]; then error_found = $?; fi
+              output=$(make $funcname)
+              echo "$(echo "$output" | grep OK)"
+              kos=$(echo "$output" | sed 's/KO you//g' | grep KO)
+              if [[ $kos ]];then
+                echo "$kos"
+                error_found=1
+              fi
             fi
           done
           exit error_found
