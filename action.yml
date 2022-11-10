@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/10 02:03:32 by agaley           ###   ########lyon.fr    #
+#    Updated: 2022/11/10 13:41:01 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,6 @@ runs:
                 kos=$(echo "$output" | sed 's/KO you//g' | grep KO)
                 if [[ "$kos" != "" ]]; then echo "$kos"; error_found=1; fi
               done
-              exit error_found
             fi
           done
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
