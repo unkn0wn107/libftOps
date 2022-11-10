@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/10 01:42:59 by agaley           ###   ########lyon.fr    #
+#    Updated: 2022/11/10 01:51:48 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ runs:
                 output=$(make $funcname)
                 echo "$(echo "$output" | grep OK)"
                 kos=$(echo "$output" | sed 's/KO you//g' | grep KO)
-                if [[ $kos ]];then
+                if [[ "$kos" != "" ]];then
                   echo "$kos"
                   error_found=1
                 fi
@@ -63,7 +63,7 @@ runs:
               output=$(make $funcname)
               echo "$(echo "$output" | grep OK)"
               kos=$(echo "$output" | sed 's/KO you//g' | grep KO)
-              if [[ $kos ]];then
+              if [[ "$kos" != "" ]];then
                 echo "$kos"
                 error_found=1
               fi
