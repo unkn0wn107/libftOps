@@ -21,7 +21,7 @@ runs:
         with:
           path: libft
           
-      - run: curl -fsSL https://github.com/unkn0wn107/francinette/blob/feat/linux-compat/requirements.txt > requirements.txt
+      - run: curl -fsSL https://raw.githubusercontent.com/unkn0wn107/francinette/ghaction-ready/requirements.txt > requirements.txt
         shell: bash
 
       - uses: actions/setup-python@v4
@@ -32,7 +32,7 @@ runs:
       - name: Install Francinette
         shell: bash
         run: |
-          curl -fsSL https://raw.githubusercontent.com/unkn0wn107/francinette/feat/linux-compat/bin/install.sh > install.sh
+          curl -fsSL https://raw.githubusercontent.com/unkn0wn107/francinette/ghaction-ready/bin/install.sh > install.sh
           chmod +x install.sh
           ./install.sh
 
