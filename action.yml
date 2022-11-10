@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/10 01:51:48 by agaley           ###   ########lyon.fr    #
+#    Updated: 2022/11/10 02:03:32 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,20 +37,17 @@ runs:
         shell: bash
         run: |
           cd libftTester
-          error_found=0
+          export error_found=0
           export TERM=xterm #For tput from libftTester/Makefile
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ $file == *.h || $file == "Makefile" ]]; then
-              echo "${file} changed - Test all functions"
+              echo ">>> $file changed - Test all functions <<<"
               funcnames=$(find ../ -type f -name "*.c" -print0 | xargs -I {} -0 -n1 bash -c "echo {} | rev | cut -c3- | rev | sed 's#../ft_##'")
               for funcname in $funcnames; do
                 output=$(make $funcname)
                 echo "$(echo "$output" | grep OK)"
                 kos=$(echo "$output" | sed 's/KO you//g' | grep KO)
-                if [[ "$kos" != "" ]];then
-                  echo "$kos"
-                  error_found=1
-                fi
+                if [[ "$kos" != "" ]]; then echo "$kos"; error_found=1; fi
               done
               exit error_found
             fi
@@ -59,14 +56,11 @@ runs:
             if [[ $file == *.c ]]; then
               filename=${file%.*}
               funcname=${filename:3}
-              echo "${file} changed - Test ${funcname}"
+              echo ">>> $file changed - Test $funcname"
               output=$(make $funcname)
               echo "$(echo "$output" | grep OK)"
               kos=$(echo "$output" | sed 's/KO you//g' | grep KO)
-              if [[ "$kos" != "" ]];then
-                echo "$kos"
-                error_found=1
-              fi
+              if [[ "$kos" != "" ]]; then echo "$kos"; error_found=1; fi
             fi
           done
           exit error_found
