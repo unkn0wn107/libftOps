@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/10 13:57:31 by agaley           ###   ########lyon.fr    #
+#    Updated: 2022/11/10 14:05:13 by agaley           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,10 +42,11 @@ runs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ $file == *.h || $file == "Makefile" ]]; then
               echo ">>> $file changed - Test all functions <<<"
-              funcnames=$(find .. -type f -name "*.c" -print0 | xargs -I {} -0 -n1 bash -c "echo {} | rev | cut -c3- | rev | sed 's#../ft_##'")
+              echo "If all your tests are OK and the moulinette KO you, please run the tester with valgrind (see README)"
+              funcnames=($(find .. -type f -name "*.c" -print0 | xargs -I {} -0 -n1 bash -c "echo {} | rev | cut -c3- | rev | sed 's#../ft_##'"))
               for funcname in $funcnames; do
                 output=$(make $funcname)
-                echo "$(echo "$output" | grep OK)"
+                echo "$(echo "$output" | sed 's/are OK//g' | grep OK)"
                 kos=$(echo "$output" | sed 's/KO you//g' | grep KO)
                 if [[ "$kos" != "" ]]; then echo "$kos"; error_found=1; fi
               done
