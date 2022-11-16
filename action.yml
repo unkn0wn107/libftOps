@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/16 02:27:34 by alex             ###   ########lyon.fr    #
+#    Updated: 2022/11/16 02:36:03 by alex             ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,8 @@ runs:
       - name: Install python requirements
         shell: bash
         run: |
+          pip install --upgrade pip setuptools
+          pip install norminette
           cd "$GITHUB_WORKSPACE"/francinette
           python3 -m venv venv
           source venv/bin/activate
