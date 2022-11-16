@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/16 02:17:36 by alex             ###   ########lyon.fr    #
+#    Updated: 2022/11/16 02:27:34 by alex             ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,6 @@ runs:
       - uses: actions/checkout@v3
         with:
           path: 'libft'
-
-      - run: cd ..
-        shell: bash
 
       - name: Checkout Francinette
         uses: actions/checkout@v3
@@ -44,11 +41,13 @@ runs:
       - name: Install python requirements
         shell: bash
         run: |
-          cd ../francinette
+          cd "$GITHUB_WORKSPACE"/francinette
           python3 -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
 
       - name: Run tests
         shell: bash
-        run: cd ../libft && bash ../francinette/tester.sh
+        run: |
+          cd "$GITHUB_WORKSPACE"/libft
+          bash "$GITHUB_WORKSPACE"/francinette/tester.sh
