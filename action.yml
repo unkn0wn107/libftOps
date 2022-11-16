@@ -6,7 +6,7 @@
 #    By: agaley <agaley@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 01:07:00 by agaley            #+#    #+#              #
-#    Updated: 2022/11/16 01:54:21 by alex             ###   ########lyon.fr    #
+#    Updated: 2022/11/16 01:58:59 by alex             ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,13 +19,13 @@ runs:
     steps:
       - uses: actions/checkout@v3
         with:
-          path: 'libft'
+          path: '~/libft'
 
       - name: Checkout Francinette
         uses: actions/checkout@v3
         with:
           repository: 'xicodomingues/francinette'
-          path: 'francinette'
+          path: '~/francinette'
           submodules: 'recursive'
           
       - name: Install apt deps
